@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Añadir una selección.</title>
+</head>
+<body>
+  <form action="listado-selecciones" method="POST">
+      {%csrf_token%}
+      <h1>Añadir una seleccion a la lista.</h1>
+      <input type="hidden" name="titulo" value="{{titulo_tabla}}">
+
+      <label>Nombre de la seleccion</label>
+      <input type="text" name="nombre">
+      <hr>
+      <label>Mundiales ganados</label>
+      <input type="number" name="num_mundiales">
+      <hr>
+      <fieldset>
+            <legend>Continente</legend>
+            <input type="text" name="continente_seleccion" list="continentes"/>
+            <datalist id="continentes">
+                {% for continente in listado_continentes %}
+                <option value="{{continente}}"></option>
+                {% endfor %}
+            </datalist>
+        </fieldset>
+      <input type="submit" value="Insertar">
+  </form>
+  <a href="{{request.META.HTTP_REFERER|escape}}">Back</a>
+</body>
+</html>
