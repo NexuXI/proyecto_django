@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Añadir clientes</title>
+</head>
+<body>
+    <form action="ver_clientes" method="post">
+        {%csrf_token%}
+        <div style="display: flex; flex-direction: column; align-items: center;">
+            <div>
+                <label>Nombre</label>
+                <input type="text" name="nombre">
+            </div>
+            <div>
+                <label>Apellidos</label>
+                <input type="text" name="apellidos">
+            </div>
+            <div>
+                <label>Email</label>
+                <input type="email" name="email">
+            </div>
+            <div>
+                <label>DNI</label>
+                <input type="text" name="dni">
+            </div>
+            <input type="submit" value="Añadir Cliente">
+        </div>
+    </form>
+    <ul>
+        <li>
+            <a href="{{request.META.HTTP_REFERER|escape}}">Atrás.</a>
+        </li>
+    </ul>
+</body>
+</html>
