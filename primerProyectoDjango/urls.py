@@ -30,6 +30,7 @@ urlpatterns = [
     path('deportes/futbol/add_seleccion', add_seleccion, name="add_seleccion"),
     path('clientes/ver_clientes', ver_clientes, name="ver_clientes"),
     path('clientes/addCliente', add_clientes, name="add_clientes"),
-    path('deportes/jugadores/', ver_jugadores, name="ver_jugadores"),
+    path('deportes/jugadores', ver_jugadores, name="ver_jugadores"),
     path('deportes/jugadores/add/', add_jugador, name="add_jugador"),
+
 ]

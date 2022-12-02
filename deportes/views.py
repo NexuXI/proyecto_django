@@ -61,24 +61,32 @@ def listar_selecciones(request):
 
 
 def ver_jugadores(request):
+    order = "nombre"
+    filtro = {"filtro": None}
+
+
     if request.method == 'POST':
         # Filtros
-        posicion_filtro = request.POST.get("posicion", "")
-        nacionalidad_filtro = request.POST.get("nacionalidad", "")
-        equipo_filtro = request.POST.get("equipo", "")
+        posicion_filtro = request.POST.get("posicion", None)
+        nacionalidad_filtro = request.POST.get("nacionalidad", None)
+        equipo_filtro = request.POST.get("equipo", None)
         # Nuevo jugador
         jugador = Jugador()
-        jugador.nombre = request.POST.get("nombre_jugador", "")
-        jugador.equipo = request.POST.get("equipo_jugador", "")
-        jugador.edad = request.POST.get("edad_jugador", "")
-        jugador.nacionalidad = request.POST.get("nacionalidad_jugador", "")
-        jugador.posicion = request.POST.get("posicion_jugador", "")
+        jugador.nombre = request.POST.get("nombre_jugador", None)
+        jugador.equipo = request.POST.get("equipo_jugador", None)
+        jugador.edad = request.POST.get("edad_jugador", None)
+        jugador.nacionalidad = request.POST.get("nacionalidad_jugador", None)
+        jugador.posicion = request.POST.get("posicion_jugador", None)
         jugador.save()
+
+    elif request.method == 'GET':
+        order = request.GET.get("order", "nombre")
 
     posiciones = ['Delantero', 'Centrocampista', 'Defensa', 'Portero']
     nacionalidades = Jugador.jugadores.values_list("nacionalidad", flat=True)
     equipos = Jugador.jugadores.values_list("equipo", flat=True)
-    jugadores = Jugador.jugadores.all().order_by('nombre')
+    # jugadores = list(filter(lambda player: player[filtro] == filtro, Jugador.jugadores.all().order_by(order)))
+    jugadores = Jugador.jugadores.all().order_by(order)
 
     contexto = {"posiciones": posiciones, "nacionalidades": nacionalidades, "equipos": equipos, "jugadores": jugadores}
     return render(request, "jugadores.html", contexto)
