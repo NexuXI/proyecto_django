@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Añadir jugador</title>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+</head>
+<body>
+    <div style="display: flex; flex-direction: column; align-items: center;">
+        <h1>Añadir una jugador</h1>
+        <form action="../" method="post">
+            {%csrf_token%}
+            <div style="display: flex; flex-direction: column; align-items: center;">
+
+                <label class="form-label">Nombre del jugador</label>
+                <input class="form-control" type="text" name="nombre_jugador">
+                <hr>
+                <label class="form-label">Equipo del jugador</label>
+                <input class="form-control" type="text" name="equipo_jugador">
+                <hr>
+                <label class="form-label">Edad del jugador</label>
+                <input class="form-control" type="number" name="edad_jugador">
+                <hr>
+                <label class="form-label">Nacionalidad del jugador</label>
+                <input class="form-control" type="text" name="nacionalidad_jugador">
+                <hr>
+                <label class="form-label">Posición del jugador</label>
+                <fieldset style="width: 100%; padding: 0;">
+                    <input class="form-control" type="text" name="posicion_jugador" list="posiciones"/>
+                    <datalist id="posiciones">
+                        {% for posicion in posiciones %}
+                        <option value="{{posicion}}"></option>
+                        {% endfor %}
+                    </datalist>
+                </fieldset>
+                <br>
+                <input type="submit" class="btn btn-primary" value="Añadir jugador">
+                <br>
+                <ul>
+                    <li>
+                        <a href="{{request.META.HTTP_REFERER|escape}}">Atrás</a>
+                    </li>
+                </ul>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

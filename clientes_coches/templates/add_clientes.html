@@ -8,6 +8,7 @@
     <form action="ver_clientes" method="post">
         {%csrf_token%}
         <div style="display: flex; flex-direction: column; align-items: center;">
+
             <div>
                 <label>Nombre</label>
                 <input type="text" name="nombre">
@@ -24,6 +25,11 @@
                 <label>DNI</label>
                 <input type="text" name="dni">
             </div>
+            <!--
+            <table>
+                {{cliente_form}}
+            </table>
+            -->
             <input type="submit" value="Añadir Cliente">
         </div>
     </form>

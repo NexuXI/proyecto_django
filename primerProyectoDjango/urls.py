@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path
 
 from webapp.views import bienvenido, despedida, listar_alumnos
-from deportes.views import deportes, listar_selecciones, add_seleccion
+from deportes.views import deportes, listar_selecciones, add_seleccion, ver_jugadores, add_jugador
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -30,4 +30,6 @@ urlpatterns = [
     path('deportes/futbol/add_seleccion', add_seleccion, name="add_seleccion"),
     path('clientes/ver_clientes', ver_clientes, name="ver_clientes"),
     path('clientes/addCliente', add_clientes, name="add_clientes"),
+    path('deportes/jugadores/', ver_jugadores, name="ver_jugadores"),
+    path('deportes/jugadores/add/', add_jugador, name="add_jugador"),
 ]

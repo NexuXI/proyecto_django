@@ -1,4 +1,5 @@
-from django.shortcuts import render, get_object_or_404
+from deportes.models import Jugador
+from django.shortcuts import render
 
 
 # Create your views here.
@@ -33,7 +34,6 @@ def listar_selecciones(request):
         num_mundiales_nueva_seleccion = request.POST.get("num_mundiales", "")
         titulo = request.POST.get("titulo", "")
 
-
     elif request.method == 'GET':
         # titulo = request.parameter("titulo")
         titulo = request.GET.get('titulo', "")
@@ -58,3 +58,33 @@ def listar_selecciones(request):
                 "listado_continentes": ["Europa", "America", "Asia", "Africa", "Oceania"]}
 
     return render(request, "listado_selecciones_mundial.html", contexto)
+
+
+def ver_jugadores(request):
+    if request.method == 'POST':
+        # Filtros
+        posicion_filtro = request.POST.get("posicion", "")
+        nacionalidad_filtro = request.POST.get("nacionalidad", "")
+        equipo_filtro = request.POST.get("equipo", "")
+        # Nuevo jugador
+        jugador = Jugador()
+        jugador.nombre = request.POST.get("nombre_jugador", "")
+        jugador.equipo = request.POST.get("equipo_jugador", "")
+        jugador.edad = request.POST.get("edad_jugador", "")
+        jugador.nacionalidad = request.POST.get("nacionalidad_jugador", "")
+        jugador.posicion = request.POST.get("posicion_jugador", "")
+        jugador.save()
+
+    posiciones = ['Delantero', 'Centrocampista', 'Defensa', 'Portero']
+    nacionalidades = Jugador.jugadores.values_list("nacionalidad", flat=True)
+    equipos = Jugador.jugadores.values_list("equipo", flat=True)
+    jugadores = Jugador.jugadores.all().order_by('nombre')
+
+    contexto = {"posiciones": posiciones, "nacionalidades": nacionalidades, "equipos": equipos, "jugadores": jugadores}
+    return render(request, "jugadores.html", contexto)
+
+
+def add_jugador(request):
+    posiciones = ['Delantero', 'Centrocampista', 'Defensa', 'Portero']
+    contexto = {"posiciones": posiciones}
+    return render(request, "add_jugador.html", contexto)
